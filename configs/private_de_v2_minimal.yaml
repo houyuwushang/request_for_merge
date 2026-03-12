@@ -1,0 +1,55 @@
+data:
+  dataset_path: REPLACE_WITH_DATASET.csv
+  output_dir: outputs/private_de_v2_minimal
+  default_numeric_bins: 8
+  discretization_strategy: equal_width
+  drop_missing: true
+
+workload:
+  families:
+    - 1way
+    - 2way
+    - prefix
+  max_vector_size: 64
+  range_widths:
+    - 2
+  prefix_thresholds_per_feature: 2
+  conditional_prefix_thresholds_per_feature: 1
+  conditional_prefix_max_condition_values: 3
+  halfspace_thresholds_per_pair: 1
+  halfspace_pairs: []
+
+privacy:
+  epsilon: 3.0
+  delta: 1.0e-6
+  total_rho: null
+  initialization_rho_fraction: 0.2
+  selection_rho_fraction: 0.25
+
+selection:
+  score_mode: l1_gap
+  score_clip: 1.0
+  vector_size_weight_power: 0.0
+
+algorithm:
+  rounds: 10
+  population_size: 4
+  synthetic_size: null
+  max_mutations_per_round: 16
+  crossover_rate: 0.5
+  crossover_rows: 8
+  seed: 7
+  device: cpu
+  deterministic: true
+  log_every_round: true
+
+ablations:
+  no_directed_mutation: false
+  no_crossover: false
+  no_orthogonal_grouping: false
+  no_inverse_variance_weighting: false
+
+output:
+  synthetic_data_path: synthetic.csv
+  metrics_path: metrics.jsonl
+  summary_path: summary.yaml
